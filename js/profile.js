@@ -35,9 +35,7 @@ function createSavingsPlan(){
     date: Date.now(),
     expenses: []
   }
-  
   savingsPlans.push(newSavingsPlan);
-
   localStorage.setItem('savingsPlans', JSON.stringify(savingsPlans));
   getSavingsPlans();
 }
