@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('select');
   var instances = M.FormSelect.init(elems, null);
 });
@@ -17,7 +17,7 @@ let expenses = [];
 let currentPlan = {};
 
 //Populates the dropdown with all the expense plans created by user
-function getSavingsPlans(){
+function getSavingsPlans() {
   console.log(savingsPlans);
   savingsPlans.forEach((plan) => {
     let option = document.createElement('option');
@@ -29,13 +29,16 @@ function getSavingsPlans(){
 
 //Retrieves all the expenses that are associated with a particular savings plan
 //and then displays them
-function getExpenses(index){
-  expensesTable.innerHTML = '';
-  currentPlan = savingsPlans[index-1];
-  console.log(currentPlan);
-  expenses = currentPlan.expenses;
-  console.log(expenses);
-  expenses.forEach((expense) => {
+function getExpenses(index) {
+  if (index == 0) {
+    expensesTable.innerHTML = '';
+  } else {
+    expensesTable.innerHTML = '';
+    currentPlan = savingsPlans[index - 1];
+    console.log(currentPlan);
+    expenses = currentPlan.expenses;
+    console.log(expenses);
+    expenses.forEach((expense) => {
       let row = expensesTable.insertRow(0);
       let date = row.insertCell(0);
       let name = row.insertCell(1);
@@ -44,12 +47,20 @@ function getExpenses(index){
       date.innerHTML = expense.expenseDate;
       name.innerHTML = expense.expenseName;
       cost.innerHTML = expense.expenseCost;
-  });
+    });
+
+  }
+
 }
 
 //Even listener for submitting a new expense
 form.addEventListener('submit', function (e) {
   e.preventDefault();
+
+  if(!savingsPlans[savingsPlans.indexOf(currentPlan)]){
+    alert('please selected a savings plan');
+    return;
+  } 
   let newExpense = {
     expenseDate: expenseDate.value,
     expenseName: expenseName.value,
@@ -60,6 +71,11 @@ form.addEventListener('submit', function (e) {
   savingPlan.expenses.push(newExpense);
   localStorage.setItem('savingsPlans', JSON.stringify(savingsPlans));
   getExpenses(savingsPlans.indexOf(currentPlan) + 1);
+  
+  //Reset form
+  expenseDate.value = '';
+  expenseName.value = '';
+  expenseCost.value = '';
 });
 
 
