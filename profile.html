@@ -58,15 +58,33 @@
 
     <h5>Savings Plans</h5>
     <div class="row">
-      <button onClick="createSavingsPlan()" class="waves-effect waves-light btn">Create Savings Plan</button>
+
+      <!-- Modal Trigger -->
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add Savings Plan</a>
+
+      <!-- Modal Structure -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Add Savings Plan</h4>
+          <form id="newSavingsPlan">
+              <label for="name">Name</label>
+              <input id="savings_plan_name" type="text" class="validate">
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <a onClick="createSavingsPlan()" class="modal-close waves-effect waves-green btn-flat">Create Savings Plan</a>
+        </div>
+      </div>
+
       <ul id="savingsPlans">
-        
+
       </ul>
     </div>
 
 
-  <script src="js/profile.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 </body>
 

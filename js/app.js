@@ -21,7 +21,7 @@ function getSavingsPlans() {
   console.log(savingsPlans);
   savingsPlans.forEach((plan) => {
     let option = document.createElement('option');
-    let text = document.createTextNode(plan.date);
+    let text = document.createTextNode(plan.name);
     option.appendChild(text);
     savingsPlansEl.appendChild(option)
   })
