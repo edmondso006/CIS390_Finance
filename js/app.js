@@ -48,9 +48,7 @@ function getExpenses(index) {
       name.innerHTML = expense.expenseName;
       cost.innerHTML = expense.expenseCost;
     });
-
   }
-
 }
 
 //Even listener for submitting a new expense
@@ -58,7 +56,7 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   if(!savingsPlans[savingsPlans.indexOf(currentPlan)]){
-    alert('please selected a savings plan');
+    alert('please select a savings plan');
     return;
   } 
   let newExpense = {
