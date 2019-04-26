@@ -11,10 +11,11 @@ let savingsPlansEl = document.querySelector('select');
 let form = document.querySelector('form');
 let expensesTable = document.getElementById('expense_table');
 let expensesTableBody = document.getElementById('expense_table_body');
-
+let totalEl = document.getElementById('total');
 let savingsPlans = JSON.parse(localStorage.getItem('savingsPlans'));
 let expenses = [];
 let currentPlan = {};
+let totalVal = 0;
 
 //Populates the dropdown with all the expense plans created by user
 function getSavingsPlans() {
@@ -44,11 +45,16 @@ function getExpenses(index) {
       let name = row.insertCell(1);
       let cost = row.insertCell(2);
 
+      totalVal += Number(expense.expenseCost);
+
+
       date.innerHTML = expense.expenseDate;
       name.innerHTML = expense.expenseName;
       cost.innerHTML = expense.expenseCost;
     });
   }
+
+  total.innerHTML = totalVal;
 }
 
 //Even listener for submitting a new expense
@@ -74,7 +80,18 @@ form.addEventListener('submit', function (e) {
   expenseDate.value = '';
   expenseName.value = '';
   expenseCost.value = '';
+  
 });
 
+
+function generateReport(){
+  var doc = new jsPDF();
+  console.log(currentPlan.name);
+  doc.text(currentPlan.name, 10, 10);
+  doc.autoTable({html: '#expense_table'});
+  doc.text("Total Spent: ", 70, 200);
+  doc.text(totalVal.toString(), 100, 200);
+  doc.save('expenses.pdf')
+}
 
 getSavingsPlans();
