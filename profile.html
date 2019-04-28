@@ -38,17 +38,7 @@
         </div>
 
 
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="income" type="number" class="validate">
-            <label for="income">Income per Month</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="savings_goal" type="number" class="validate">
-            <label for="savings_goal">How much do you want to save a month?</label>
-          </div>
-        </div>
+        
 
         <button type="submit" value="submit" class="waves-effect waves-light btn">Save</button>
       </form>
@@ -67,8 +57,23 @@
         <div class="modal-content">
           <h4>Add Savings Plan</h4>
           <form id="newSavingsPlan">
-              <label for="name">Name</label>
-              <input id="savings_plan_name" type="text" class="validate">
+            <div class="row">
+                <label for="name">Name</label>
+                <input id="savings_plan_name" type="text" class="validate">    
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="income" type="number" class="validate">
+                <label for="income">Income per Month</label>
+              </div>
+    
+              <div class="input-field col s6">
+                <input id="savings_goal" type="number" class="validate">
+                <label for="savings_goal">How much do you want to save a month?</label>
+              </div>
+            </div>
+
           </form>
 
         </div>

@@ -17,17 +17,13 @@ if (savedProfile) {
   console.log(savedProfile);
   firstName.value = savedProfile.firstName;
   lastName.value = savedProfile.lastName;
-  monthlyIncome.value = savedProfile.monthlyIncome;
-  savingsGoal.value = savedProfile.savingsGoal;
-}
+} 
 
 console.log(savedProfile);
 form.addEventListener('submit', function (e) {
   let profile = {
     firstName: firstName.value,
     lastName: lastName.value,
-    monthlyIncome: monthlyIncome.value,
-    savingsGoal: savingsGoal.value
   }
   localStorage.setItem('profile', JSON.stringify(profile));
   console.log(profile);
@@ -40,6 +36,9 @@ function createSavingsPlan(){
   let newSavingsPlan = {
     date: Date.now(),
     name: savingsPlanName.value,
+    goal: Number(savingsGoal.value),
+    income: Number(monthlyIncome.value),
+    remaining: Number(monthlyIncome.value),
     expenses: []
   }
   

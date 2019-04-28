@@ -12,10 +12,12 @@ let form = document.querySelector('form');
 let expensesTable = document.getElementById('expense_table');
 let expensesTableBody = document.getElementById('expense_table_body');
 let totalEl = document.getElementById('total');
+let remainingEl = document.getElementById('remaining')
 let savingsPlans = JSON.parse(localStorage.getItem('savingsPlans'));
 let expenses = [];
 let currentPlan = {};
 let totalVal = 0;
+
 
 //Populates the dropdown with all the expense plans created by user
 function getSavingsPlans() {
@@ -47,14 +49,13 @@ function getExpenses(index) {
 
       totalVal += Number(expense.expenseCost);
 
-
       date.innerHTML = expense.expenseDate;
       name.innerHTML = expense.expenseName;
       cost.innerHTML = expense.expenseCost;
     });
   }
-
-  total.innerHTML = totalVal;
+  remainingEl.innerHTML = `Total Remaining: ${currentPlan.remaining}`;
+  total.innerHTML = `Total Spent: ${totalVal}`;
 }
 
 //Even listener for submitting a new expense
@@ -65,11 +66,14 @@ form.addEventListener('submit', function (e) {
     alert('please select a savings plan');
     return;
   } 
+
   let newExpense = {
     expenseDate: expenseDate.value,
     expenseName: expenseName.value,
-    expenseCost: expenseCost.value
+    expenseCost: Number(expenseCost.value)
   }
+
+  currentPlan.remaining = currentPlan.remaining - newExpense.expenseCost;
 
   let savingPlan = savingsPlans[savingsPlans.indexOf(currentPlan)];
   savingPlan.expenses.push(newExpense);
@@ -80,6 +84,7 @@ form.addEventListener('submit', function (e) {
   expenseDate.value = '';
   expenseName.value = '';
   expenseCost.value = '';
+  remainingEl.value = currentPlan.remaining;
   
 });
 
@@ -89,8 +94,8 @@ function generateReport(){
   console.log(currentPlan.name);
   doc.text(currentPlan.name, 10, 10);
   doc.autoTable({html: '#expense_table'});
-  doc.text("Total Spent: ", 70, 200);
-  doc.text(totalVal.toString(), 100, 200);
+  doc.text(`Total Spent: ${totalVal}`, 70, 275);
+  doc.text(`Money Saved: ${currentPlan.remaining}`, 70, 250);
   doc.save('expenses.pdf')
 }
 
