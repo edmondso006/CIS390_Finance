@@ -17,7 +17,7 @@ if (savedProfile) {
   console.log(savedProfile);
   firstName.value = savedProfile.firstName;
   lastName.value = savedProfile.lastName;
-} 
+}
 
 console.log(savedProfile);
 form.addEventListener('submit', function (e) {
@@ -40,12 +40,31 @@ function createSavingsPlan(){
     income: Number(monthlyIncome.value),
     remaining: Number(monthlyIncome.value),
     expenses: []
+
   }
-  
-  savingsPlans.push(newSavingsPlan);
-  localStorage.setItem('savingsPlans', JSON.stringify(savingsPlans));
-  getSavingsPlans();
-  savingsPlanName.value = '';
+
+  let unique = true;
+
+  for( let i = 0; i < savingsPlans.length; i++){
+    console.log(savingsPlans[i]);
+    console.log(newSavingsPlan);
+    if( savingsPlans[i].name == newSavingsPlan.name){
+      alert("Name already in the system")
+      unique = false;
+
+      break
+
+    }
+  }
+
+  if( unique){
+    savingsPlans.push(newSavingsPlan);
+    localStorage.setItem('savingsPlans', JSON.stringify(savingsPlans));
+    getSavingsPlans();
+    savingsPlanName.value = '';
+  }
+
+
 }
 
 function getSavingsPlans(){
